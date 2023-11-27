@@ -1,18 +1,18 @@
 Decentralized Ergodic Control
 =============================
 
-Create a ros melodic environment with this package in the src folder. 
+Create a ros melodic environment with this package in the src folder.
 First source the ros devel/setup file
 To run use the following commands
 ```
 python create_scene.py num_of_agents
 ```
-where num_of_agents is replaced with the number of agents you 
+where num_of_agents is replaced with the number of agents you
 want to see (dont set it high than 50).
 
-then to visualize the environment run 
+then to visualize the environment run
 ```
-rosrun rviz rviz 
+rosrun rviz rviz
 ```
 and open the default.rviz config in the rviz folder in this repo
 
@@ -40,3 +40,15 @@ and open the default.rviz config in the rviz folder in this repo
     cd /home/catkin_ws/src/DecentralizedErgodicControl/
     rosrun rviz rviz -d ./rviz/default.rviz
     ```
+
+# Run without ROS
+
+地图大小为$[0,1]^2$
+
+agent的state有4维，前两维是横纵坐标，后两维目前不确定，判断依据是`obs_space`中，前两维是$[0,1]$区间，后两维是$[-\inf,+\inf]$区间。
+
+目前干了这么一些工作，把代码中涉及`publish`、`rospy.Rate(1)`、`rospy.init_node`调用的都删掉，暂时不再依赖`roscore`
+
+但是发现一个问题，agent并没有按照预期分组，去覆盖不同目标；可能是因为去掉了rospy通信，导致agent各自为战，需要自己覆盖所有目标？
+
+`ergodic_controller.py`里的`self._ck_dict`记录了ck的通信记录，用来算平均值的，可以从这里着手改进

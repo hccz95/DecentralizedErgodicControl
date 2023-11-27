@@ -106,7 +106,6 @@ class DErgControl(object):
         N = len(pred_traj)
         ck = np.sum([self._basis.fk(xt) for xt in pred_traj], axis=0) / N
         self._ck_msg.ck = ck.copy()
-        self._ck_pub.publish(self._ck_msg)
 
         if len(self._ck_dict.keys()) > 1:
             self._ck_dict[self._agent_name] = ck

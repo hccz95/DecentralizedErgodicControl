@@ -23,8 +23,10 @@ class TargetDist(object):
 
         # self.means = [npr.uniform(0.2, 0.8, size=(2,))
         #                     for _ in range(num_nodes)]
-        self.means = [np.array([0.7, 0.7]), np.array([0.3,0.3]), np.array([0.2, 0.8]), np.array([0.8,0.2])]
+        self.means = [np.array([0.85, 0.85]), np.array([0.15,0.15]), np.array([0.15, 0.85]), np.array([0.85,0.15])]
         self.vars  = [np.array([0.1,0.1])**2, np.array([0.1,0.1])**2, np.array([0.1,0.1])**2, np.array([0.1,0.1])**2]
+        # self.means = [np.array([0.2, 0.2]), ]
+        # self.vars  = [np.array([0.1,0.1])**2, ]
 
 
         self.has_update = False

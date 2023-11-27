@@ -1,2 +1,4 @@
 *.pyc
 *.ipynb
+.devcontainer/devcontainer.json
+decentralized_ergodic/
