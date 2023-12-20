@@ -1,9 +1,8 @@
 import numpy as np
-import rospy
 from visualization_msgs.msg import Marker, MarkerArray
 from geometry_msgs.msg import Pose, Pose, Point
-import tf
-from tf import transformations as trans
+# import tf
+# from tf import transformations as trans
 
 
 class QuadVisual(object):

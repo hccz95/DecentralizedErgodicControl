@@ -3,7 +3,6 @@ from .basis import Basis
 from .barrier import Barrier
 from .replay_buffer import ReplayBuffer
 from copy import deepcopy
-import rospy
 from std_msgs.msg import String, Float32MultiArray
 from .target_dist import TargetDist
 
@@ -43,8 +42,6 @@ class DErgControl(object):
         self.pred_path = []
 
         # set up the eos stuff last
-        rospy.Subscriber('ck_link', Ck, self._ck_link_callback)
-        self._ck_pub = rospy.Publisher('ck_link', Ck, queue_size=1)
 
 
     def _ck_link_callback(self, msg):
@@ -106,7 +103,6 @@ class DErgControl(object):
         N = len(pred_traj)
         ck = np.sum([self._basis.fk(xt) for xt in pred_traj], axis=0) / N
         self._ck_msg.ck = ck.copy()
-        self._ck_pub.publish(self._ck_msg)
 
         if len(self._ck_dict.keys()) > 1:
             self._ck_dict[self._agent_name] = ck

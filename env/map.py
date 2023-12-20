@@ -45,7 +45,6 @@ class Map(Visual):
 
     def __init__(self, num_objs=10):
 
-        rospy.init_node('env')
         self.objects = []
 
         for o in range(num_objs):
@@ -57,7 +56,6 @@ class Map(Visual):
         Visual.__init__(self)
 
         self.update_rendering()
-        self._rate = rospy.Rate(1)
 
     def run(self):
         while not rospy.is_shutdown():

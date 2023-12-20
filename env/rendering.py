@@ -19,7 +19,6 @@ class Visual(object):
 
     def update_rendering(self):
         self._env_markers.markers = self._markers
-        self._marker_pub.publish(self._env_markers)
 
     def __build_rendering(self):
 
