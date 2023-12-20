@@ -2,3 +2,5 @@
 *.ipynb
 .devcontainer/devcontainer.json
 decentralized_ergodic/
+libs/
+*.tar.gz

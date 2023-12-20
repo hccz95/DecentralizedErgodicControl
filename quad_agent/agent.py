@@ -1,8 +1,7 @@
 import sys
 sys.path.append('../')
+sys.path.append('../libs/')
 
-import rospy
-import tf
 
 from d_erg_lib import DErgControl
 from d_erg_lib.utils import convert_ck2dist
@@ -10,7 +9,6 @@ from .model import Model
 
 from grid_map_msgs.msg import GridMap
 from std_msgs.msg import Float32MultiArray, MultiArrayLayout, MultiArrayDimension
-import tf
 
 class Agent(Model):
 
@@ -20,7 +18,6 @@ class Agent(Model):
         Model.__init__(self)
         # Visual.__init__(self, agent_name)
         self.ctrllr = DErgControl(agent_name, Model())
-        self.__br = tf.TransformBroadcaster()
 
         # TODO: consider moving this into the target dist class
 
