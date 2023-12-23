@@ -36,6 +36,8 @@ if __name__ == '__main__':
     # Clear the screen
     screen.fill((255, 255, 255))
 
+    sim_env.run_parrell()
+
     # 2. start simulation
     pygame_running = True
     for iter in range(1000):
@@ -43,7 +45,7 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 pygame_running = False
 
-        sim_env.step()
+        # sim_env.step()
 
         if not pygame_running:
             break

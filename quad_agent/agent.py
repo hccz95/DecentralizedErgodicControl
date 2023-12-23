@@ -12,7 +12,7 @@ from std_msgs.msg import Float32MultiArray, MultiArrayLayout, MultiArrayDimensio
 
 class Agent(Model):
 
-    def __init__(self, agent_name):
+    def __init__(self, agent_name, shared_array=None):
 
         self.agent_name = agent_name
         Model.__init__(self)
@@ -48,6 +48,7 @@ class Agent(Model):
         gridmap.info.resolution = 0.2
 
         self._grid_msg = gridmap
+        self._shared_array = shared_array
 
     def step(self):
         ctrl = self.ctrllr(self.state)
@@ -56,3 +57,20 @@ class Agent(Model):
 
         grid_vals = convert_ck2dist(self.ctrllr._basis, self.ctrllr._ck_mean)
         self._grid_msg.data[0].data = grid_vals[::-1]
+
+        self._shared_array[:] = self.ctrllr._ck_msg.ck  # 这里赋值必须加上[:]，否则会重新创建一个对象，导致共享内存无法更新
+
+        # # 手动发布Ck消息，不使用ros接口
+        # for target_id in range(len(self.agents)):
+        #     if target_id == agent_id:
+        #         continue
+        #     self.agents[target_id].ctrllr._ck_dict[agent.agent_name] = np.array(agent.ctrllr._ck_msg.ck)
+
+        # ck = np.array(agent.ctrllr._ck_msg.ck)
+
+    def run(self):
+        while True:
+            print(self.agent_name)
+            self.step()
+            import time
+            time.sleep(50)
